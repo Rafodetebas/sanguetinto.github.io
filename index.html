@@ -67,15 +67,25 @@
   }
 
   /* ── TÍTULO ── */
+ h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.3rem, 5vw, 2.2rem); /* reduz um pouco */
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.04em; /* diminui o espaçamento */
+  line-height: 1.25;
+  margin-bottom: 12px;
+  word-break: break-word; /* garante quebra se precisar */
+}
+  @media (max-width: 480px) {
+  body { padding: 40px 20px; }
+  .link-item { padding: 16px 20px; }
+
   h1 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1.6rem, 6vw, 2.8rem);
-    font-weight: 400;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-    line-height: 1.25;
-    margin-bottom: 12px;
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
   }
+}
 
   .subtitle {
     font-style: italic;
@@ -205,7 +215,7 @@
     <!-- LINK 2 -->
     <a href="esbas.html" class="link-item">
       Esbás e Rituais de Lua Cheia
-      <span class="link-subtitle">Descrição breve opcional</span>
+      <span class="link-subtitle">O documento reúne rituais de Lua Cheia para cada um dos doze signos do zodíaco, organizados a partir da astrologia tradicional e da teologia helênico-kemética do Coven Sangue Tinto. </span>
     </a>
 
     <!-- LINK 3 -->
