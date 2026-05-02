@@ -643,8 +643,8 @@ const signs = [
     planeta: "Marte",
     planGlyph: "♂",
     deities: [
-      { name: "Hades/Perséfone", tradition: "Helênico" },
-      { name: "Osíris/Anúbis", tradition: "Kemético" }
+      { name: "Hades & Perséfone", tradition: "Helênico" },
+      { name: "Osíris & Anúbis", tradition: "Kemético" }
     ],
     tema: "Morte e renascimento, revelação do oculto, transmutação",
     materiais: ["Vela preta e vela vermelha escura", "Obsidiana ou pedra preta", "Mirra", "Vinho tinto ou sangue de romã"],
@@ -797,6 +797,10 @@ function renderSigns() {
         <div class="section-label">Materiais</div>
         <ul class="items-list">
           ${sign.materiais.map(m => `<li>${m}</li>`).join('')}
+        </ul>
+         <div class="section-label">Cores</div>
+        <ul class="items-list">
+          ${sign.cores.map(c => `<li>${c}</li>`).join('')}
         </ul>
         <div class="section-label">Posição da Lua</div>
         <ul class="items-list"><li>${sign.dignidade}</li></ul>
