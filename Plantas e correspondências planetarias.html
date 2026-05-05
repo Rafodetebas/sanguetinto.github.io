@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plantas Planetárias — Coven Sangue Tinto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════
+   TEMA ESCURO
+═══════════════════════════════ */
+[data-theme="dark"] {
+  --bg:          #0d0b08;
+  --bg2:         #111009;
+  --bg3:         #161209;
+  --text:        #e8dfc8;
+  --text-dim:    #b0a890;
+  --text-dimmer: #6a6050;
+  --border:      #2a2318;
+  --gold:        #c9a84c;
+  --gold-pale:   #e8d5a0;
+  --gold-dim:    #7a6330;
+
+  --sol-c:     #d4822a; --sol-pale:   #f0b870; --sol-bg:    #150e04;
+  --lua-c:     #8a9ab0; --lua-pale:   #c8d8e8; --lua-bg:    #080c12;
+  --merc-c:    #6a9a70; --merc-pale:  #a8d0b0; --merc-bg:   #050e06;
+  --venus-c:   #b06880; --venus-pale: #e0a8c0; --venus-bg:  #120508;
+  --marte-c:   #b03a1a; --marte-pale: #e0785a; --marte-bg:  #140604;
+  --jup-c:     #4a6aaa; --jup-pale:   #90b0e0; --jup-bg:    #05080f;
+  --sat-c:     #6a5a7a; --sat-pale:   #b090c8; --sat-bg:    #080610;
+
+  --toggle-bg:          #1e1a14;
+  --toggle-border:      #7a6330;
+  --toggle-text:        #b0a890;
+  --toggle-active-bg:   #7a6330;
+  --toggle-active-text: #0d0b08;
+}
+
+/* ═══════════════════════════════
+   TEMA CLARO
+═══════════════════════════════ */
+[data-theme="light"] {
+  --bg:          #f5f0e6;
+  --bg2:         #ede7da;
+  --bg3:         #e4ddd0;
+  --text:        #1a1208;
+  --text-dim:    #4a3c2c;
+  --text-dimmer: #9a8c7c;
+  --border:      #ccc0a8;
+  --gold:        #6b2020;
+  --gold-pale:   #4a1414;
+  --gold-dim:    #8a3a3a;
+
+  --sol-c:     #8a3a18; --sol-pale:   #5a2208; --sol-bg:    #f0e8da;
+  --lua-c:     #4a4868; --lua-pale:   #2a2845; --lua-bg:    #eceaf5;
+  --merc-c:    #2a5838; --merc-pale:  #162a1c; --merc-bg:   #deeee6;
+  --venus-c:   #7a2848; --venus-pale: #4e1228; --venus-bg:  #f5e4ec;
+  --marte-c:   #7a1810; --marte-pale: #4e0c08; --marte-bg:  #f5e0dc;
+  --jup-c:     #253870; --jup-pale:   #121e48; --jup-bg:    #dde4f5;
+  --sat-c:     #382848; --sat-pale:   #201428; --sat-bg:    #eae4f5;
+
+  --toggle-bg:          #e0d8c4;
+  --toggle-border:      #9a6a5a;
+  --toggle-text:        #5a3a2a;
+  --toggle-active-bg:   #6b2020;
+  --toggle-active-text: #f5f0e6;
+}
+
+/* ═══════════════════════════════
+   BASE
+═══════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.8;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* ═══════════════════════════════
+   TOGGLE
+═══════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 22px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  transition: background 0.35s, border-color 0.35s;
+}
+
+.theme-btn {
+  padding: 7px 15px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--toggle-text);
+  transition: all 0.3s ease;
+}
+
+.theme-btn.active {
+  background: var(--toggle-active-bg);
+  color: var(--toggle-active-text);
+}
+
+/* ═══════════════════════════════
+   HEADER
+═══════════════════════════════ */
+header {
+  text-align: center;
+  padding: 90px 40px 68px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 65% 50% at 50% 0%, #c8900818 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.header-ornament {
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.6rem, 5vw, 2.9rem);
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  transition: color 0.35s;
+}
+
+.subtitle {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════
+   LAYOUT
+═══════════════════════════════ */
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 32px 90px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 52px auto;
+  max-width: 480px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-dim));
+}
+.divider::after { background: linear-gradient(to left, transparent, var(--gold-dim)); }
+.divider-symbol { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+
+/* ═══════════════════════════════
+   INTRO
+═══════════════════════════════ */
+.intro-block {
+  border-left: 2px solid var(--gold-dim);
+  padding-left: 28px;
+  margin-bottom: 64px;
+}
+.intro-block h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.intro-block p { margin-bottom: 14px; }
+.intro-block p:last-child { margin-bottom: 0; }
+
+/* ═══════════════════════════════
+   SEÇÃO DE PLANETA
+═══════════════════════════════ */
+.planet-section { margin-bottom: 80px; }
+
+.planet-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 26px 30px;
+  margin-bottom: 30px;
+  border: 1px solid;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s, border-color 0.35s;
+}
+
+.planet-header::after {
+  content: attr(data-glyph);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4.5rem;
+  opacity: 0.07;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.planet-sol   { border-color: var(--sol-c);   background: var(--sol-bg);   }
+.planet-lua   { border-color: var(--lua-c);   background: var(--lua-bg);   }
+.planet-merc  { border-color: var(--merc-c);  background: var(--merc-bg);  }
+.planet-venus { border-color: var(--venus-c); background: var(--venus-bg); }
+.planet-marte { border-color: var(--marte-c); background: var(--marte-bg); }
+.planet-jup   { border-color: var(--jup-c);   background: var(--jup-bg);   }
+.planet-sat   { border-color: var(--sat-c);   background: var(--sat-bg);   }
+
+.planet-symbol {
+  font-size: 2.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.planet-title-block h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 3px;
+  transition: color 0.35s;
+}
+.planet-sol   .planet-title-block h2 { color: var(--sol-pale);   }
+.planet-lua   .planet-title-block h2 { color: var(--lua-pale);   }
+.planet-merc  .planet-title-block h2 { color: var(--merc-pale);  }
+.planet-venus .planet-title-block h2 { color: var(--venus-pale); }
+.planet-marte .planet-title-block h2 { color: var(--marte-pale); }
+.planet-jup   .planet-title-block h2 { color: var(--jup-pale);   }
+.planet-sat   .planet-title-block h2 { color: var(--sat-pale);   }
+
+.planet-names {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dimmer);
+  margin-bottom: 8px;
+  font-family: 'Cinzel', serif;
+}
+
+.planet-tagline {
+  font-style: italic;
+  font-size: 0.93rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ═══════════════════════════════
+   GRID DE CATEGORIAS
+═══════════════════════════════ */
+.planet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cat-card {
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  transition: background 0.35s, border-color 0.35s;
+}
+
+.cat-card.full { grid-column: 1 / -1; }
+
+.cat-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  transition: color 0.35s;
+}
+
+.planet-sol   .cat-title { color: var(--sol-c);   }
+.planet-lua   .cat-title { color: var(--lua-c);   }
+.planet-merc  .cat-title { color: var(--merc-c);  }
+.planet-venus .cat-title { color: var(--venus-c); }
+.planet-marte .cat-title { color: var(--marte-c); }
+.planet-jup   .cat-title { color: var(--jup-c);   }
+.planet-sat   .cat-title { color: var(--sat-c);   }
+
+.cat-card p {
+  font-size: 0.93rem;
+  color: var(--text);
+  line-height: 1.72;
+  transition: color 0.35s;
+}
+
+.cat-card p em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--gold-pale);
+  transition: color 0.35s;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  background: var(--bg3);
+  transition: all 0.35s;
+}
+
+/* ═══════════════════════════════
+   FECHAMENTO
+═══════════════════════════════ */
+.closing {
+  border: 1px solid var(--gold-dim);
+  padding: 42px;
+  text-align: center;
+  margin-top: 64px;
+  background: var(--bg2);
+  transition: all 0.35s;
+}
+.closing h2 {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  margin-bottom: 18px;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color 0.35s;
+}
+.closing p {
+  max-width: 660px;
+  margin: 0 auto;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.85;
+}
+
+@media (max-width: 620px) {
+  .planet-grid { grid-template-columns: 1fr; }
+  .planet-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  header { padding: 60px 24px 48px; }
+  .container { padding: 0 20px 60px; }
+  .theme-toggle { top: 14px; right: 14px; }
+  .closing { padding: 28px 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="theme-toggle">
+  <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')">Noturno</button>
+  <button class="theme-btn active" id="btn-light" onclick="setTheme('light')">Diurno</button>
+</div>
+
+<header>
+  <div class="header-ornament">✦ Botânica Sagrada ✦</div>
+  <h1>Plantas Planetárias</h1>
+  <p class="subtitle">Como reconhecer, colher e trabalhar com plantas segundo as correspondências dos sete planetas clássicos — a partir do <em>Picatrix</em> e da tradição helênica</p>
+</header>
+
+<div class="container">
+
+  <div class="intro-block">
+    <h2>Princípios da Botânica Mágica</h2>
+    <p>O <em>Picatrix</em> (Ghāyat al-Ḥakīm, séc. XI) é o mais sistemático dos tratados de magia astral do mundo islâmico medieval, compilando fontes gregas, persas e herméticas. Em sua doutrina botânica, as plantas não são classificadas por gênero ou espécie, mas por <em>simpatia</em> — pela qualidade do influxo planetário que recebem e que, portanto, podem transmitir ao operador mágico.</p>
+    <p>A identificação de uma planta como solar, marcial ou saturnina não é arbitrária: ela emerge de um conjunto de sinais que a própria planta carrega em seu corpo — forma, cor, textura, aroma, sabor, habitat, época de florescimento e qualidades medicinais. Esses sinais são a <em>assinatura</em> do planeta, impressa na matéria pelo influxo celeste no momento da geração da planta. Reconhecer essas assinaturas é o primeiro passo do trabalho com plantas no contexto da magia astral.</p>
+    <p>Os nomes helênicos dos planetas são usados aqui em paralelo aos latinos, conforme a correspondência consagrada: Hélio (Sol), Selene (Lua), Hermes (Mercúrio), Afrodite (Vênus), Ares (Marte), Zeus (Júpiter) e Crono (Saturno).</p>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">☉</span></div>
+
+  <!-- SOL -->
+  <div class="planet-section planet-sol">
+    <div class="planet-header planet-sol" data-glyph="☉">
+      <div class="planet-symbol">☉</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Hélio · Sol</div>
+        <h2>Plantas Solares</h2>
+        <p class="planet-tagline">Quente e seco na primeira ou segunda qualidade. Plantas do poder, da vitalidade, da cura, da iluminação e da autoridade real.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Flores de pétalas dispostas radialmente, evocando o disco solar — especialmente as da família Asteraceae. Cores <em>douradas, amarelas e alaranjadas</em>. Caules eretos e altivos. Superfície foliar frequentemente brilhante. Plantas que <em>seguem o sol</em> ao longo do dia (heliotropismo) são manifestação direta da simpatia solar.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>amargo e aromático</em>. Aroma caloroso, balsâmico, por vezes resinoso. Medicinalmente, plantas solares tendem a ser <em>tônicas, cardiotônicas, febrífugas e cicatrizantes</em>. Muitas possuem propriedades antivirais — operam no nível do vigor vital, do calor que sustenta a vida.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Locais <em>abertos e expostos ao sol direto</em>, terrenos elevados, topos de colinas. Raramente encontradas em sombra densa. Florescem preferencialmente no solstício de verão, quando o Sol está em máxima potência.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>cura, proteção, visibilidade, autoridade e vitória</em>. Invocação de Hélio, Apolo, Rá. Defumações ao meio-dia. O <em>Picatrix</em> recomenda colher plantas solares com o Sol em Leão, seu signo de domicílio, no domingo na hora do Sol.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Girassol</span><span class="tag">Calêndula</span><span class="tag">Camomila</span>
+          <span class="tag">Angélica</span><span class="tag">Alecrim</span><span class="tag">Louro</span>
+          <span class="tag">Oliva</span><span class="tag">Açafrão</span><span class="tag">Hipericão</span>
+          <span class="tag">Acácia</span><span class="tag">Cedro</span><span class="tag">Heliotropo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">☽</span></div>
+
+  <!-- LUA -->
+  <div class="planet-section planet-lua">
+    <div class="planet-header planet-lua" data-glyph="☽">
+      <div class="planet-symbol">☽</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Selene · Lua</div>
+        <h2>Plantas Lunares</h2>
+        <p class="planet-tagline">Fria e úmida na primeira ou segunda qualidade. Plantas da receptividade, dos fluidos, da intuição, dos ciclos e da magia dos sonhos.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Flores <em>brancas, prateadas ou de tonalidade pálida</em>. Folhas com superfície prateada ou velosa na face inferior. Plantas suculentas ou com alto teor de água nos tecidos. Plantas que <em>florescem à noite</em> ou cujas flores se abrem ao entardecer são fortemente lunares.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>suave, levemente adocicado ou insípido</em>. Aroma aquoso, fresco, leve. Medicinalmente, plantas lunares são <em>calmantes, emolientes, diuréticas e reguladoras dos fluidos</em>. Associadas ao sistema linfático, aos hormônios e aos ciclos femininos.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Margens de rios, brejos, pântanos, locais <em>úmidos e sombrios</em>. Plantas aquáticas ou semiaquáticas são fortemente lunares. O <em>Picatrix</em> indica a colheita nas noites de lua cheia ou no início da lua crescente.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>sonhos, visão, magia de espelho, memória e proteção doméstica</em>. Invocação de Selene, Hécate, Isis. Banhos rituais, infusões para trabalho onírico. Colheita na segunda-feira, na hora da Lua, ou na lua cheia em signos de água.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Jasmim</span><span class="tag">Lírio branco</span><span class="tag">Lótus</span>
+          <span class="tag">Nenúfar</span><span class="tag">Arruda</span><span class="tag">Mirra</span>
+          <span class="tag">Salgueiro</span><span class="tag">Papoula</span><span class="tag">Pepino</span>
+          <span class="tag">Aloe</span><span class="tag">Artemísia</span><span class="tag">Melão</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">☿</span></div>
+
+  <!-- MERCÚRIO -->
+  <div class="planet-section planet-merc">
+    <div class="planet-header planet-merc" data-glyph="☿">
+      <div class="planet-symbol">☿</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Hermes · Mercúrio</div>
+        <h2>Plantas Mercuriais</h2>
+        <p class="planet-tagline">De natureza mista, adaptando-se ao planeta com que se conjuga. Plantas da comunicação, do pensamento, das viagens e da magia das palavras.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Folhas <em>pequenas, numerosas e finamente recortadas</em> — plantas que lembram penas ou rendas. Caules nodosos ou ramificados de modo complexo. Cores variadas: <em>verde claro, amarelo-esverdeado, cinza-prateado</em>. Sementes aladas ou dotadas de estruturas que facilitam a dispersão pelo vento.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>variável — frequentemente amargo ou pungente</em>, por vezes com nuances simultâneas. Aroma penetrante, mentolado ou herbáceo. Medicinalmente, plantas mercuriais são <em>carminativas, nervinas, expectorantes e estimulantes do sistema nervoso</em>.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Encruzilhadas, margens de caminhos, terrenos perturbados e <em>locais de passagem</em>. Plantas daninhas que crescem em frestas e jardins abandonados. Adaptam-se a múltiplos ambientes — a adaptabilidade é o signo de Hermes.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>comunicação, estudo, memória, viagens e adivinhação</em>. Invocação de Hermes, Thoth. Incensos para clareza mental. Colheita na quarta-feira, na hora de Mercúrio, com o planeta em Gêmeos ou Virgem.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Erva-cidreira</span><span class="tag">Hortelã</span><span class="tag">Lavanda</span>
+          <span class="tag">Funcho</span><span class="tag">Anis</span><span class="tag">Mandrágora</span>
+          <span class="tag">Feto</span><span class="tag">Nogueira</span><span class="tag">Avelã</span>
+          <span class="tag">Cafeeiro</span><span class="tag">Salsa</span><span class="tag">Endro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">♀</span></div>
+
+  <!-- VÊNUS -->
+  <div class="planet-section planet-venus">
+    <div class="planet-header planet-venus" data-glyph="♀">
+      <div class="planet-symbol">♀</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Afrodite · Vênus</div>
+        <h2>Plantas Venusianas</h2>
+        <p class="planet-tagline">Temperada, levemente fria e úmida. Plantas do amor, da beleza, da sensualidade, da arte e da harmonia entre os seres.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Flores <em>belas e perfumadas</em>, frequentemente simétricas e de pétalas suaves. Cores <em>róseas, vermelhas, brancas cremosas e lilases</em>. Plantas com espinhos escondendo flores belas — a dualidade venusiana do prazer e da dor. Frutos carnosos e saborosos. Texturas macias, aveludadas.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>doce ou adstringente suave</em>. Aroma florido, envolvente, que induz ao relaxamento. Medicinalmente, plantas venusianas são <em>afrodisíacas, emolientes, antiespasmódicas e tônicas do sistema reprodutivo</em>. Associadas à pele, aos rins e ao equilíbrio dos fluidos.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Jardins cultivados, pomares, locais <em>agradáveis e bem cuidados</em>. Margens de lagos e fontes de água doce. Crescem em solos ricos e úmidos. Plantas de ornamentação e perfumaria são quase sempre venusianas.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>amor, atração, beleza, fertilidade e reconciliação</em>. Invocação de Afrodite, Hator. Banhos de beleza, perfumes rituais, amuletos de atração. Colheita na sexta-feira, na hora de Vênus, com o planeta em Touro ou Libra.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Rosa</span><span class="tag">Verbena</span><span class="tag">Maçã</span>
+          <span class="tag">Damasco</span><span class="tag">Murta</span><span class="tag">Violeta</span>
+          <span class="tag">Baunilha</span><span class="tag">Canela</span><span class="tag">Hibisco</span>
+          <span class="tag">Framboesa</span><span class="tag">Sândalo</span><span class="tag">Amor-perfeito</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">♂</span></div>
+
+  <!-- MARTE -->
+  <div class="planet-section planet-marte">
+    <div class="planet-header planet-marte" data-glyph="♂">
+      <div class="planet-symbol">♂</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Ares · Marte</div>
+        <h2>Plantas Marciais</h2>
+        <p class="planet-tagline">Quente e seco na primeira ou segunda qualidade. Plantas da força, da proteção agressiva, da coragem, da purificação e da ruptura.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Plantas com <em>espinhos, acúleos, pelos urticantes ou bordas cortantes</em>. Formas agressivas — folhas pontiagudas, caules rígidos. Cores <em>vermelhas, escarlates e alaranjadas intensas</em>. O <em>Picatrix</em> é explícito: tudo que fere, pica ou queima pertence a Ares. Seiva avermelhada ou leitosa é outro sinal marcial frequente.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>ardente, picante, amargo ou adstringente intenso</em>. Aroma acre ou pungente — que irrita as mucosas. Medicinalmente, plantas marciais são <em>estimulantes circulatórias, diaforéticas, anti-infecciosas e rubefacientes</em>. Operam no sangue e na inflamação.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Terrenos <em>áridos, pedregosos ou perturbados</em>. Margens de estradas, terrenos baldios, encostas rochosas. Plantas pioneiras que colonizam ambientes hostis são marciais. Crescem onde outros vegetais não conseguem.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>proteção, banimento, coragem, força e quebra de obstáculos</em>. Invocação de Ares, Sekhmet, Hórus guerreiro. Defumações de limpeza agressiva, amuletos de proteção. Colheita na terça-feira, na hora de Marte, com o planeta em Áries ou Escorpião.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Urtiga</span><span class="tag">Pimenta</span><span class="tag">Alho</span>
+          <span class="tag">Cebola</span><span class="tag">Mostarda</span><span class="tag">Cacto</span>
+          <span class="tag">Espinheiro</span><span class="tag">Absinto</span><span class="tag">Gengibre</span>
+          <span class="tag">Pinheiro</span><span class="tag">Rábano</span><span class="tag">Manjericão</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">♃</span></div>
+
+  <!-- JÚPITER -->
+  <div class="planet-section planet-jup">
+    <div class="planet-header planet-jup" data-glyph="♃">
+      <div class="planet-symbol">♃</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Zeus · Júpiter</div>
+        <h2>Plantas Jovianas</h2>
+        <p class="planet-tagline">Quente e úmido na primeira qualidade. Plantas da abundância, da expansão, da benevolência, da sabedoria e da justiça divina.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Plantas de <em>grande porte, generosas e abundantes</em> — árvores de copa larga. Folhas <em>grandes, largas e exuberantes</em>, de verde intenso. Flores azuis ou púrpuras, frutos volumosos. O carvalho — árvore de Zeus — é o arquétipo joviano: majestoso, longevo, hospitaleiro.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>doce, levemente amargo e nutritivo</em>. Aroma balsâmico, suave — que expande o peito. Medicinalmente, plantas jovianas são <em>tônicas hepáticas, expectorantes, adaptogênicas e nutritivas</em>. Fortalecem sem estimular em excesso, nutrem sem entorpecer.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Florestas <em>antigas e bem estabelecidas</em>. Terrenos férteis e bem irrigados. Plantas jovianas raramente crescem em ambientes extremos — elas requerem condições favoráveis, pois são o próprio signo da abundância. Associadas a templos e bosques sagrados.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>prosperidade, expansão, proteção, sabedoria e conexão com o divino</em>. Invocação de Zeus, Amon-Rá, Osíris. Oferendas em altares de abundância. Colheita na quinta-feira, na hora de Júpiter, com o planeta em Sagitário ou Peixes.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Carvalho</span><span class="tag">Figo</span><span class="tag">Romã</span>
+          <span class="tag">Noz-moscada</span><span class="tag">Dente-de-leão</span><span class="tag">Sálvia</span>
+          <span class="tag">Hissopo</span><span class="tag">Betônica</span><span class="tag">Boragem</span>
+          <span class="tag">Tília</span><span class="tag">Castanheiro</span><span class="tag">Melissa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-symbol">♄</span></div>
+
+  <!-- SATURNO -->
+  <div class="planet-section planet-sat">
+    <div class="planet-header planet-sat" data-glyph="♄">
+      <div class="planet-symbol">♄</div>
+      <div class="planet-title-block">
+        <div class="planet-names">Crono · Saturno</div>
+        <h2>Plantas Saturninas</h2>
+        <p class="planet-tagline">Frio e seco na primeira qualidade. Plantas do limite, da morte, da longevidade, do tempo profundo e da magia ctônica.</p>
+      </div>
+    </div>
+    <div class="planet-grid">
+      <div class="cat-card">
+        <div class="cat-title">Assinatura Visual</div>
+        <p>Plantas de <em>aparência sombria, escura ou estranha</em>. Cores <em>negro-esverdeadas, cinzentas, púrpuras escuras</em>. Crescimento lento, mas de longevidade excepcional. Muitas são tóxicas ou narcóticas. O cipreste — árvore dos mortos — é o arquétipo saturnino: imóvel, escuro, eterno, guardião dos cemitérios.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Sabor, Aroma e Propriedades</div>
+        <p>Sabor <em>extremamente amargo, adstringente ou nauseante</em> — por vezes venenoso. Aroma pesado, terroso, fúnebre, resinoso escuro. Medicinalmente, plantas saturninas são <em>narcóticas, anestésicas e longevidade-promotoras</em> em doses mínimas. O veneno e o remédio são faces da mesma qualidade.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Habitat</div>
+        <p>Cemitérios, ruínas, locais <em>abandonados, sombrios e frios</em>. Cavernas, grutas, margens de pântanos escuros. Solos pobres e pedregosos. Plantas parasitas e saprófilas — que crescem sobre outras plantas mortas — são fortemente saturninas.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Uso Ritual e Mágico</div>
+        <p>Trabalhos de <em>necromancia, ancestralidade, proteção por limiar e magia ctônica</em>. Invocação de Crono, Hécate em sua face ctônica, Anúbis. Oferendas aos mortos, trabalho com os Makárioi. Colheita no sábado, na hora de Saturno, em lua minguante.</p>
+      </div>
+      <div class="cat-card full">
+        <div class="cat-title">Exemplos de Plantas</div>
+        <div class="tag-list">
+          <span class="tag">Cipreste</span><span class="tag">Beladona</span><span class="tag">Meimendro</span>
+          <span class="tag">Acônito</span><span class="tag">Teixo</span><span class="tag">Bardana</span>
+          <span class="tag">Líquen</span><span class="tag">Musgo</span><span class="tag">Eléboro</span>
+          <span class="tag">Mirra negra</span><span class="tag">Olmo</span><span class="tag">Beldroega</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <h2>A Simpatia como Método</h2>
+    <p>A identificação planetária de uma planta raramente repousa em um único sinal — ela emerge da convergência de assinaturas. Uma planta é marcial não apenas porque tem espinhos, mas porque os espinhos se somam ao sabor ardente, ao habitat árido e às propriedades que operam no sangue. Aprende-se a ler esse vocabulário com o tempo, com as mãos, com o nariz. O <em>Picatrix</em> não é um catálogo a ser memorizado: é um método de percepção que, uma vez aprendido, transforma o olhar sobre qualquer jardim.</p>
+  </div>
+
+</div>
+
+<script>
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+    document.getElementById('btn-light').classList.toggle('active', theme === 'light');
+  }
+</script>
+
+</body>
+</html>
